@@ -2,8 +2,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:DCDesktop.Views"
         x:Class="DCDesktop.MainWindow"
-        Width="400" Height="300" Title="Connexion">
-    <ContentControl x:Name="MainContent">
-        <views:LoginView />
-    </ContentControl>
+        Width="400" Height="500"
+        Title="Accueil"
+        Background="#F3EFEc"
+        >
+    <views:HomeView />
 </Window>

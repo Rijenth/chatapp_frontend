@@ -7,15 +7,79 @@
         <vm:LoginViewModel/>
     </UserControl.DataContext>
 
-    <StackPanel Margin="20" Spacing="10">
-        <TextBlock Text="Nom d'utilisateur" />
-        <TextBox Text="{Binding Username, Mode=TwoWay}" />
-    
-        <TextBlock Text="Mot de passe" />
-        <TextBox Text="{Binding Password, Mode=TwoWay}" PasswordChar="●" />
-    
-        <Button Content="Se connecter" Command="{Binding LoginCommand}" IsDefault="True" />
-    
-        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" />
-    </StackPanel>
+    <Grid>
+        <StackPanel Width="250"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="16">
+
+            <TextBlock Text="Connexion"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Foreground="#2E1065" />
+
+            <!-- Champ username -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="Nom d'utilisateur"
+                           FontSize="14"
+                           Foreground="#2E1065" />
+                <TextBox Text="{Binding Username, Mode=TwoWay}"
+                         Height="35"
+                         CornerRadius="6"
+                         Background="White"
+                         Foreground="Black"
+                         />
+            </StackPanel>
+
+            <!-- Champ mot de passe -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="Mot de passe"
+                           FontSize="14"
+                           Foreground="#2E1065" />
+                <TextBox Text="{Binding Password, Mode=TwoWay}"
+                         Height="35"
+                         CornerRadius="6"
+                         PasswordChar="●"
+                         Foreground="Black"
+                         Background="White" />
+            </StackPanel>
+
+            <!-- Bouton login -->
+            <Button Content="Se connecter"
+                    Command="{Binding LoginCommand}"
+                    IsDefault="True"
+                    Width="200"
+                    Height="45"
+                    Background="#FFFFFF"
+                    Foreground="#2E1065"
+                    FontWeight="Bold"
+                    FontSize="18"
+                    BorderBrush="#2E1065"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="10,5"
+                    HorizontalAlignment="Center" />
+            
+            <Button Content="Retour"
+                    Command="{Binding GoBackHomeCommand}"
+                    Width="200"
+                    Height="40"
+                    Background="Transparent"
+                    BorderBrush="#2E1065"
+                    Foreground="#2E1065"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    HorizontalAlignment="Center" />
+            
+            <!-- Message d'erreur -->
+            <TextBlock Text="{Binding ErrorMessage}"
+                       Foreground="Red"
+                       FontSize="13"
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Center" />
+        </StackPanel>
+    </Grid>
 </UserControl>

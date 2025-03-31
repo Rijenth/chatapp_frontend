@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using DCDesktop.Services;
 using DCDesktop.Views;
 
 namespace DCDesktop.ViewModels;
@@ -26,10 +27,13 @@ public partial class LoginViewModel : ObservableObject
             ErrorMessage = "Nom d'utilisateur ou mot de passe incorrect.";
             return;
         }
+        
+        NavigationService.GoToLogin();
+    }
 
-        
-        if (App.Current.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime { MainWindow: MainWindow mainWindow }) return;
-        
-        mainWindow.Content = new MainPage();
+    [RelayCommand]
+    private void GoBackHome()
+    {
+        NavigationService.GoToHome();
     }
 }
