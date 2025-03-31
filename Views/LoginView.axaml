@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:DCDesktop.ViewModels"
+             x:Class="DCDesktop.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+    <UserControl.DataContext>
+        <vm:LoginViewModel/>
+    </UserControl.DataContext>
+
+    <StackPanel Margin="20" Spacing="10">
+        <TextBlock Text="Nom d'utilisateur" />
+        <TextBox Text="{Binding Username, Mode=TwoWay}" />
+    
+        <TextBlock Text="Mot de passe" />
+        <TextBox Text="{Binding Password, Mode=TwoWay}" PasswordChar="●" />
+    
+        <Button Content="Se connecter" Command="{Binding LoginCommand}" IsDefault="True" />
+    
+        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" />
+    </StackPanel>
+</UserControl>
