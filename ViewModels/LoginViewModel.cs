@@ -28,7 +28,7 @@ public partial class LoginViewModel : ObservableObject
             return;
         }
         
-        NavigationService.GoToLogin();
+        NavigationService.GoToMain();
     }
 
     [RelayCommand]

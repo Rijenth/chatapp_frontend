@@ -6,6 +6,15 @@ namespace DCDesktop.Services;
 
 public static class NavigationService
 {
+    public static void GoToMain()
+    {
+        if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
+            desktop.MainWindow is Window mainWindow)
+        {
+            mainWindow.Content = new MainPage();
+        }
+    }
+    
     public static void GoToHome()
     {
         if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
