@@ -1,0 +1,61 @@
+# .NET build artefacts
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Avalonia generated bindings (if using compiled bindings)
+.g/.generated/
+
+# Rider / ReSharper
+.idea/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider cache
+.idea/
+*.DotSettings.user
+
+# Avalonia XAML previewer temp files
+.axaml.cs
+.axaml.g.cs
+.axaml.g.i.cs
+
+# Avalonia compiled bindings output (if enabled)
+.g/
+
+# Hot reload cache (HotAvalonia, LiveSharp, etc.)
+hotreload/
+*.hotreload.cache
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Dotnet-specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.dbmdl
+
+# Optional: environment variables/secrets
+.env
+*.secret
+secrets.json
+
+# Optional: compiled config files
+appsettings.*.json
+launchSettings.json
