@@ -2,10 +2,11 @@ using Avalonia.Controls;
 
 namespace DCDesktop.Views;
 
-public partial class MainPage : UserControl
+public partial class MainView : UserControl
 {
-    public MainPage()
+    public MainView()
     {
         InitializeComponent();
+
     }
 }

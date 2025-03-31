@@ -11,7 +11,7 @@ public static class NavigationService
         if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
             desktop.MainWindow is Window mainWindow)
         {
-            mainWindow.Content = new MainPage();
+            mainWindow.Content = new MainView();
         }
     }
     

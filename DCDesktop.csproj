@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\MainPage.axaml.cs">
+    <Compile Update="Views\MainView.axaml.cs">
       <DependentUpon>MainPage.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
