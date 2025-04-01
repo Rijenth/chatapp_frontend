@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:DCDesktop.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DCDesktop.Views.ContactView"
+             x:DataType="vm:ContactViewModel">
+
+    <UserControl.DataContext>
+        <vm:ContactViewModel />
+    </UserControl.DataContext>
+
+    <Grid RowDefinitions="Auto,*" Margin="20">
+        <StackPanel Grid.Row="0" Spacing="16">
+            <!-- Titre -->
+            <TextBlock Text="Mes contacts"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#2E1065"
+                       Margin="0,0,0,10" />
+
+            <!-- Carte d'ajout d'ami -->
+            <Border Background="White"
+                    CornerRadius="10"
+                    Padding="20"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="1">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Ajouter un ami"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="#2E1065" />
+
+                    <!-- Zone input + bouton -->
+                    <Grid ColumnDefinitions="Auto,Auto">
+                        <TextBox Text="{Binding NewUsername}"
+                                 Watermark="Nom d'utilisateur"
+                                 Background="#F3F3F3"
+                                 Foreground="Black"
+                                 BorderBrush="#D1C4E9"
+                                 BorderThickness="1"
+                                 CornerRadius="6"
+                                 Padding="8"
+                                 Width="250"
+                                 Margin="0,0,10,0"
+                                 Grid.Column="0" />
+
+                        <Button Content="Ajouter"
+                                Command="{Binding AddFriendCommand}"
+                                Background="#2E1065"
+                                Foreground="White"
+                                Padding="15,8"
+                                CornerRadius="6"
+                                Grid.Column="1"
+                                VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <!-- Liste d'amis -->
+        <Border Grid.Row="1"
+                
+                Background="White"
+                CornerRadius="8"
+                Margin="0,20,0,0"
+                Padding="15">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Grid.Row="0"
+                           Text="Mes amis"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Foreground="#2E1065"
+                           Margin="0,0,0,10"/>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Friends}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White"
+                                        BorderBrush="#D1C4E9"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Margin="0,0,0,8"
+                                        Padding="15,10">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Username}"
+                                                   VerticalAlignment="Center"/>
+                                        <Button Grid.Column="1"
+                                                Content="Supprimer"
+                                                Click="onRemoveFriendClicked"
+                                                Background="#F5F5F5"
+                                                Foreground="#D32F2F"
+                                                BorderThickness="1"
+                                                BorderBrush="#D1C4E9"
+                                                Padding="10,5"
+                                                CornerRadius="4">
+                                            <Button.Styles>
+                                                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                                    <Setter Property="Background" Value="#F5F5F5"/>
+                                                </Style>
+                                            </Button.Styles>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

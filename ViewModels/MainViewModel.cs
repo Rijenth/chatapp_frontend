@@ -26,7 +26,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Contact()
     {
-        
+        NavigationService.GoToContact();
     }
     
     [RelayCommand]

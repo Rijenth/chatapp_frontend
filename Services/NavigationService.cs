@@ -23,6 +23,15 @@ public static class NavigationService
             mainWindow.Content = new PublicView();
         }
     }
+
+    public static void GoToContact()
+    {
+        if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
+            desktop.MainWindow is Window mainWindow)
+        {
+            mainWindow.Content = new ContactView();
+        }
+    }
     
     public static void GoToHome()
     {
