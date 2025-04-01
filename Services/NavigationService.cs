@@ -15,6 +15,15 @@ public static class NavigationService
         }
     }
     
+    public static void GoToPublic()
+    {
+        if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
+            desktop.MainWindow is Window mainWindow)
+        {
+            mainWindow.Content = new PublicView();
+        }
+    }
+    
     public static void GoToHome()
     {
         if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&

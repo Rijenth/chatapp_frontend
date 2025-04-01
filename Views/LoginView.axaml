@@ -59,7 +59,8 @@
                     BorderThickness="1"
                     CornerRadius="8"
                     Padding="10,5"
-                    HorizontalAlignment="Center" />
+                    HorizontalAlignment="Center"
+                    />
             
             <Button Content="Retour"
                     Command="{Binding GoBackHomeCommand}"

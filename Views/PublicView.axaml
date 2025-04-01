@@ -1,9 +1,95 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+<UserControl 
+            xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:DCDesktop.ViewModels"
+             xmlns:components="clr-namespace:DCDesktop.Views.Components"
              x:Class="DCDesktop.Views.PublicView"
              x:DataType="vm:PublicViewModel">
+
     <UserControl.DataContext>
-        <vm:PublicViewModel/>
+        <vm:PublicViewModel />
     </UserControl.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Colonne gauche -->
+        <StackPanel Grid.Column="0"
+                    Background="#F3EFEC"
+                    HorizontalAlignment="Center">
+
+            <components:UserBadge />
+
+            <!-- Zone scrollable avec hauteur limitée -->
+            <ScrollViewer MaxHeight="400">
+                <StackPanel>
+                    <ListBox ItemsSource="{Binding Channels}"
+                             Background="#F3EFEC"
+                             BorderThickness="0"
+                             SelectionMode="Single"
+                             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                             MaxHeight="400">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Background="#FFFFFF"
+                                    BorderThickness="1"
+                                    BorderBrush="#D1C4E9"
+                                    CornerRadius="6"
+                                    Margin="4"
+                                    Padding="8"
+                                    Click="OnChannelClicked">
+                                    <!-- Style personnalisé pour garder le fond blanc au survol -->
+                                    <Button.Styles>
+                                        <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                            <Setter Property="Background" Value="#FFFFFF" />
+                                        </Style>
+                                        <Style Selector="Button:pressed /template/ ContentPresenter">
+                                            <Setter Property="Background" Value="#FFFFFF" />
+                                        </Style>
+                                    </Button.Styles>
+                                    <TextBlock Text="{Binding name}" FontSize="14" Foreground="#2E1065" />
+                                </Button>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </ScrollViewer>
+            <!-- Bouton Retour -->
+            <Button Content="Retour"
+                    Width="160"
+                    Margin="0 15 0 0"
+                    Padding="10"
+                    Command="{Binding GoBackMainCommand}"
+                    Background="#2E1065"
+                    Foreground="White"
+                    CornerRadius="8"
+                    FontWeight="Bold" />
+        </StackPanel>
+
+        <!-- Colonne droite -->
+        <Border Grid.Column="1" Background="White">
+            <Grid>
+                <TextBlock Text="Sélectionner un channel" 
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="#2E1065"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           IsVisible="{Binding SelectedChannel, Converter={x:Static ObjectConverters.IsNull}}" />
+        
+                <TextBlock Text="{Binding SelectedChannel.id, StringFormat='Channel ID: {0}'}"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="#2E1065"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           IsVisible="{Binding SelectedChannel, Converter={x:Static ObjectConverters.IsNotNull}}" />
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>

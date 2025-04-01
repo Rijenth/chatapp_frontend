@@ -8,8 +8,6 @@ namespace DCDesktop.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly AuthAPIService _authApiService = new();
-
     [ObservableProperty] private string _username;
 
     public MainViewModel()
@@ -22,7 +20,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Public()
     {
-        
+        NavigationService.GoToPublic();
     }
     
     [RelayCommand]

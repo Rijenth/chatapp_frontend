@@ -1,0 +1,21 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:DCDesktop.Views.Components"
+    x:Class="DCDesktop.Views.Components.UserBadge"
+    x:DataType="local:UserBadge">
+    
+    <Border Width="100"
+            Height="40"
+            Background="#2E1065"
+            CornerRadius="8"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="20">
+        <TextBlock x:Name="UsernameText"
+                   Foreground="White"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold" />
+    </Border>
+</UserControl>
