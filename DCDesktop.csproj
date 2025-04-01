@@ -26,5 +26,8 @@
     <Compile Update="Views\MainView.axaml.cs">
       <DependentUpon>MainPage.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\PublicView.axaml.cs">
+      <DependentUpon>PublicView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

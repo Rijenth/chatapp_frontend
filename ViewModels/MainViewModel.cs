@@ -10,30 +10,32 @@ public partial class MainViewModel : ObservableObject
 {
     private readonly AuthAPIService _authApiService = new();
 
-    [ObservableProperty]
-    private string result = "Suis je authentifé ?";
+    [ObservableProperty] private string _username;
+
+    public MainViewModel()
+    {
+        _username = AuthenticationStateService.GetUsername() != "" 
+            ? AuthenticationStateService.GetUsername()
+            : "INCONNU";
+    }
 
     [RelayCommand]
-    public async Task LoadDataAsync()
+    private void Public()
     {
-        Result = "Chargement...";
-
-        try
-        {
-            var response = await _authApiService.Me();
-
-            if (response.IsSuccessStatusCode)
-            {
-
-                Result = "Vous êtes authentifié";
-                return;
-            }
-            
-            Result = "Vous n'êtes pas authentifié";
-        }
-        catch (Exception ex)
-        {
-            Result = $"Erreur : {ex.Message}";
-        }
+        
+    }
+    
+    [RelayCommand]
+    private void Contact()
+    {
+        
+    }
+    
+    [RelayCommand]
+    private void Logout()
+    {
+        AuthenticationStateService.SetUsername("");
+        AuthenticationStateService.SetJWT("");
+        NavigationService.GoToLogin();
     }
 }
