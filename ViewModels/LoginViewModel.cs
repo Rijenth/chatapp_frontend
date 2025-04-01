@@ -1,10 +1,12 @@
 
+using System;
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
+using DCDesktop.Models;
 using DCDesktop.Services;
-using DCDesktop.Views;
+using System.Threading.Tasks;
+
 
 namespace DCDesktop.ViewModels;
 
@@ -20,15 +22,49 @@ public partial class LoginViewModel : ObservableObject
     private string _errorMessage = string.Empty;
 
     [RelayCommand]
-    private void Login()
+    private async Task Login()
     {
-        if (Username != "admin" || Password != "1234")
+        var service = new AuthAPIService();
+        var request = new AuthenticationRequest
         {
-            ErrorMessage = "Nom d'utilisateur ou mot de passe incorrect.";
+            password = Password,
+            username = Username
+        };
+
+        if (string.IsNullOrWhiteSpace(request.username) || string.IsNullOrWhiteSpace(request.password))
+        {
+            ErrorMessage = "Veuillez remplir tous les champs.";
             return;
         }
-        
-        NavigationService.GoToMain();
+
+        if (request.username.Length < 4)
+        {
+            ErrorMessage = "Le nom d'utilisateur doit contenir au moins 4 caractères.";
+            return;
+        }
+
+        if (request.password.Length < 4)
+        {
+            ErrorMessage = "Le mot de passe doit contenir au moins 4 caractères.";
+            return;
+        }
+
+        try
+        {
+            var response = await service.LoginAsync(request);
+
+            if (response is null || string.IsNullOrEmpty(response.jwt))
+            {
+                ErrorMessage = "Nom d'utilisateur ou mot de passe incorrect.";
+                return;
+            }
+            
+            NavigationService.GoToMain();
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Erreur réseau : {ex.Message}";
+        }
     }
 
     [RelayCommand]
