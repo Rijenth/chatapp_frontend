@@ -59,6 +59,8 @@ public partial class LoginViewModel : ObservableObject
                 return;
             }
             
+            AuthenticationStateService.SetUsername(request.username);
+            //AuthenticationStateService.SetJWT(response.jwt);
             NavigationService.GoToMain();
         }
         catch (Exception ex)

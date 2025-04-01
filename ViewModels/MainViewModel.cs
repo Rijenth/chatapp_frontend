@@ -8,10 +8,10 @@ namespace DCDesktop.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly ExempleAPIService _exempleAPIService = new();
+    private readonly AuthAPIService _authApiService = new();
 
     [ObservableProperty]
-    private string result = "Clique sur le bouton pour charger la donnée.";
+    private string result = "Suis je authentifé ?";
 
     [RelayCommand]
     public async Task LoadDataAsync()
@@ -20,8 +20,16 @@ public partial class MainViewModel : ObservableObject
 
         try
         {
-            var data = await _exempleAPIService.GetExamplePostAsync();
-            Result = data;
+            var response = await _authApiService.Me();
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                Result = "Vous êtes authentifié";
+                return;
+            }
+            
+            Result = "Vous n'êtes pas authentifié";
         }
         catch (Exception ex)
         {

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using DCDesktop.Models;
@@ -26,8 +27,6 @@ public class AuthAPIService : ApiService
     {
         var url = $"{BaseUrl}/auth/login";
         
-        Debug.WriteLine("request: " + request);
-
         var response = await _httpClient.PostAsJsonAsync(url, request);
 
         if (response.IsSuccessStatusCode)
@@ -38,11 +37,14 @@ public class AuthAPIService : ApiService
         return null;
     }
 
-    public async Task<string> HelloAsync()
+    public async Task<HttpResponseMessage> Me()
     {
-        var url = $"{BaseUrl}/auth/hello";
+        var url = $"{BaseUrl}/me";
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
+        var jwt = AuthenticationStateService.GetJWT();
+        
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
 
-        var response = await _httpClient.GetAsync(url);
-        return await response.Content.ReadAsStringAsync();
+        return await _httpClient.SendAsync(request);
     }
 }
