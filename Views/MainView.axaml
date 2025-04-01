@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:DCDesktop.ViewModels"
+             x:Class="DCDesktop.Views.MainView"
+             x:DataType="vm:MainViewModel">
+    <UserControl.DataContext>
+        <vm:MainViewModel/>
+    </UserControl.DataContext>
+
+    <StackPanel Margin="20" Spacing="16"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Width="400">
+
+        <Button Content="Charger depuis API"
+                Command="{Binding LoadDataCommand}"
+                Width="200"
+                HorizontalAlignment="Center" />
+
+        <TextBlock Text="{Binding Result}"
+                   TextWrapping="Wrap"
+                   FontSize="14"
+                   Foreground="#2E1065" />
+    </StackPanel>
+</UserControl>
