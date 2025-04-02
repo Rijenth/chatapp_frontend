@@ -18,14 +18,14 @@ namespace DCDesktop.ViewModels
         private ObservableCollection<User> _friends = new();
 
         [ObservableProperty]
-        private string _newUsername = string.Empty;
+        private string _NewContactUsername = string.Empty;
 
         public ContactViewModel()
         {
-            _ = LoadContactsAsync();
+            _ = LoadUserFriendList();
         }
 
-        private async Task LoadContactsAsync()
+        private async Task LoadUserFriendList()
         {
             var result = await _contactApiService.GetAllUserContacts();
 
@@ -44,34 +44,49 @@ namespace DCDesktop.ViewModels
         }
         
         [RelayCommand]
-        private void AddFriend()
+        private async Task AddFriend()
         {
-            if (string.IsNullOrWhiteSpace(NewUsername))
+            if (string.IsNullOrWhiteSpace(NewContactUsername))
             {
                 Console.WriteLine("Le nom d'utilisateur ne peut pas être vide.");
                 return;
             }
 
-            if (Friends.Any(f => f.Username.Equals(NewUsername, System.StringComparison.OrdinalIgnoreCase)))
+            if (Friends.Any(f => f.Username.Equals(NewContactUsername, System.StringComparison.OrdinalIgnoreCase)))
             {
-                Console.WriteLine($"L'utilisateur {NewUsername} existe déjà dans votre liste d'amis.");
+                Console.WriteLine($"L'utilisateur {NewContactUsername} existe déjà dans votre liste d'amis.");
                 return;
             }
 
-            Friends.Insert(0, new User { Username = NewUsername });
-            NewUsername = string.Empty;
+            var response = await _contactApiService.AddContactAsync(NewContactUsername);
+
+            if (! response)
+            {
+                return;
+            }
+                
+            await LoadUserFriendList();
+            
+            NewContactUsername = string.Empty;
         }
 
-        public void RemoveFriend(User? user)
+        public async Task RemoveFriend(User? user)
         {
             if (user != null)
             {
-                Friends.Remove(user);
+                var response = await _contactApiService.DeleteContactAsync(user.Id);
+
+                if (! response)
+                {
+                    return;
+                }
+                
+                await LoadUserFriendList();
             }
         }
 
         [RelayCommand]
-        public void GoBackMain()
+        private void GoBackMain()
         {
             NavigationService.GoToMain();
         }

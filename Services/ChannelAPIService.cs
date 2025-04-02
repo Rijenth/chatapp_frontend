@@ -19,10 +19,8 @@ public class ChannelApiService : ApiService
         try
         {
             var url = $"{BaseUrl}/channels";
-            var jwt = AuthenticationStateService.GetJWT();
-
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
 
             var response = await HttpClient.SendAsync(request);
             

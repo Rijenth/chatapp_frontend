@@ -48,7 +48,7 @@
 
                     <!-- Zone input + bouton -->
                     <Grid ColumnDefinitions="Auto,Auto">
-                        <TextBox Text="{Binding NewUsername}"
+                        <TextBox Text="{Binding NewContactUsername}"
                                  Watermark="Nom d'utilisateur"
                                  Background="#F3F3F3"
                                  Foreground="Black"

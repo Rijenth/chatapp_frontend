@@ -41,7 +41,7 @@ public class AuthAPIService : ApiService
         var authenticationRequest = new AuthenticationRequest
         {
             username = AuthenticationStateService.GetUsername(),
-            password = "" // ou null si inutile
+            password = ""
         };
 
         var jsonContent = JsonSerializer.Serialize(authenticationRequest);
@@ -51,9 +51,8 @@ public class AuthAPIService : ApiService
         {
             Content = content
         };
-
-        var jwt = AuthenticationStateService.GetJWT();
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+        
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
 
         return await HttpClient.SendAsync(request);
     }
@@ -62,9 +61,8 @@ public class AuthAPIService : ApiService
     {
         var url = $"{BaseUrl}/me";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
-        var jwt = AuthenticationStateService.GetJWT();
         
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
 
         return await HttpClient.SendAsync(request);
     }
