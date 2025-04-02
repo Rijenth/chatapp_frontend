@@ -122,7 +122,7 @@
                 </Border>
                 
                 <!-- Liste de messages -->
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="0,5">
+                <ScrollViewer x:Name="MessagesScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="0,5">
                     <ItemsControl ItemsSource="{Binding Messages}" Margin="10">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="models:Message">
@@ -172,7 +172,7 @@
                         <TextBox Grid.Column="0"
                                  Watermark="Écrivez votre message..."
                                  Text="{Binding NewMessageText}"
-                                 AcceptsReturn="False"
+                                 AcceptsReturn="True"
                                  Margin="0"
                                  Padding="10"
                                  Background="White"
