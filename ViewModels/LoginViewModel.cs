@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using DCDesktop.Models;
 using DCDesktop.Services;
 using System.Threading.Tasks;
+using DCDesktop.Request;
 
 
 namespace DCDesktop.ViewModels;
@@ -25,7 +26,7 @@ public partial class LoginViewModel : ObservableObject
     private async Task Login()
     {
         var service = new AuthAPIService();
-        var request = new AuthenticationRequest
+        var request = new AuthenticationRequest()
         {
             password = Password,
             username = Username
@@ -59,8 +60,9 @@ public partial class LoginViewModel : ObservableObject
                 return;
             }
             
-            AuthenticationStateService.SetUsername(request.username);
-            //AuthenticationStateService.SetJWT(response.jwt);
+            AuthenticationStateService.SetUserID(response.userId);
+            AuthenticationStateService.SetUsername(response.username);
+            AuthenticationStateService.SetJWT(response.jwt);
             NavigationService.GoToMain();
         }
         catch (Exception ex)

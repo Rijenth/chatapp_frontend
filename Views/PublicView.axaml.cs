@@ -17,7 +17,7 @@ public partial class PublicView : UserControl
     {
         if (sender is Button button && button.DataContext is Channel channel)
         {
-            Debug.WriteLine($"🟣 Channel sélectionné : {channel.id} - {channel.name}");
+            Debug.WriteLine($"🟣 Channel sélectionné : {channel.Id} - {channel.Name}");
 
             if (DataContext is PublicViewModel vm)
             {

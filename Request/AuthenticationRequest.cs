@@ -1,4 +1,4 @@
-namespace DCDesktop.Models;
+namespace DCDesktop.Request;
 
 public class AuthenticationRequest
 {

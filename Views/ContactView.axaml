@@ -13,6 +13,20 @@
 
     <Grid RowDefinitions="Auto,*" Margin="20">
         <StackPanel Grid.Row="0" Spacing="16">
+            <Button Content="Retour"
+                    Command="{Binding GoBackMainCommand}"
+                    Width="200"
+                    Height="40"
+                    Background="Transparent"
+                    BorderBrush="#2E1065"
+                    Foreground="#2E1065"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    HorizontalAlignment="Left"
+                    />
+            
             <!-- Titre -->
             <TextBlock Text="Mes contacts"
                        FontSize="24"
@@ -74,7 +88,7 @@
                            Foreground="#2E1065"
                            Margin="0,0,0,10"/>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                     <ItemsControl ItemsSource="{Binding Friends}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -111,5 +125,6 @@
                 </ScrollViewer>
             </Grid>
         </Border>
+        
     </Grid>
 </UserControl>

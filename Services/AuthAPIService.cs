@@ -6,30 +6,25 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DCDesktop.Models;
+using DCDesktop.Request;
+using DCDesktop.Response;
 
 namespace DCDesktop.Services;
 
 public class AuthAPIService : ApiService
 {
-    private readonly HttpClient _httpClient;
-
-    public AuthAPIService()
-    {
-        _httpClient = new HttpClient();
-    }
-
     public async Task<HttpResponseMessage> RegisterAsync(User user)
     {
         var url = $"{BaseUrl}/auth/register";
 
-        return await _httpClient.PostAsJsonAsync(url, user);
+        return await HttpClient.PostAsJsonAsync(url, user);
     }
 
     public async Task<AuthenticationResponse?> LoginAsync(AuthenticationRequest request)
     {
         var url = $"{BaseUrl}/auth/login";
         
-        var response = await _httpClient.PostAsJsonAsync(url, request);
+        var response = await HttpClient.PostAsJsonAsync(url, request);
 
         if (response.IsSuccessStatusCode)
         {
@@ -60,7 +55,7 @@ public class AuthAPIService : ApiService
         var jwt = AuthenticationStateService.GetJWT();
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
 
-        return await _httpClient.SendAsync(request);
+        return await HttpClient.SendAsync(request);
     }
 
     public async Task<HttpResponseMessage> Me()
@@ -71,6 +66,6 @@ public class AuthAPIService : ApiService
         
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
 
-        return await _httpClient.SendAsync(request);
+        return await HttpClient.SendAsync(request);
     }
 }

@@ -52,7 +52,7 @@
                                             <Setter Property="Background" Value="#FFFFFF" />
                                         </Style>
                                     </Button.Styles>
-                                    <TextBlock Text="{Binding name}" FontSize="14" Foreground="#2E1065" />
+                                    <TextBlock Text="{Binding Name}" FontSize="14" Foreground="#2E1065" />
                                 </Button>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -61,28 +61,25 @@
             </ScrollViewer>
             <!-- Bouton Retour -->
             <Button Content="Retour"
-                    Width="160"
-                    Margin="0 15 0 0"
-                    Padding="10"
                     Command="{Binding GoBackMainCommand}"
-                    Background="#2E1065"
-                    Foreground="White"
+                    Width="160"
+                    Height="40"
+                    Margin="0 10 0 0"
+                    Background="Transparent"
+                    BorderBrush="#2E1065"
+                    Foreground="#2E1065"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    BorderThickness="1"
                     CornerRadius="8"
-                    FontWeight="Bold" />
+                    HorizontalAlignment="Left"
+            />
         </StackPanel>
 
         <!-- Colonne droite -->
         <Border Grid.Column="1" Background="White">
             <Grid>
-                <TextBlock Text="Sélectionner un channel" 
-                           FontSize="18"
-                           FontWeight="SemiBold"
-                           Foreground="#2E1065"
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"
-                           IsVisible="{Binding SelectedChannel, Converter={x:Static ObjectConverters.IsNull}}" />
-        
-                <TextBlock Text="{Binding SelectedChannel.id, StringFormat='Channel ID: {0}'}"
+                <TextBlock Text="{Binding SelectedChannel.Id, StringFormat='Channel ID: {0}'}"
                            FontSize="20"
                            FontWeight="Bold"
                            Foreground="#2E1065"
