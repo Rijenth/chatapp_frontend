@@ -19,6 +19,9 @@ namespace DCDesktop.ViewModels
 
         [ObservableProperty]
         private string _NewContactUsername = string.Empty;
+        
+        [ObservableProperty]
+        private string _errorMessage = string.Empty;
 
         public ContactViewModel()
         {
@@ -39,8 +42,8 @@ namespace DCDesktop.ViewModels
                 
                 return;
             }
-            
-            Console.WriteLine("⚠️ Impossible de charger les contacts depuis l'API.");
+
+            ErrorMessage = "Impossible de charger les contacts depuis l'API.";
         }
         
         [RelayCommand]
@@ -48,13 +51,13 @@ namespace DCDesktop.ViewModels
         {
             if (string.IsNullOrWhiteSpace(NewContactUsername))
             {
-                Console.WriteLine("Le nom d'utilisateur ne peut pas être vide.");
+                ErrorMessage = "Le nom d'utilisateur ne peut pas être vide.";
                 return;
             }
 
             if (Friends.Any(f => f.Username.Equals(NewContactUsername, System.StringComparison.OrdinalIgnoreCase)))
             {
-                Console.WriteLine($"L'utilisateur {NewContactUsername} existe déjà dans votre liste d'amis.");
+                ErrorMessage = $"L'utilisateur {NewContactUsername} existe déjà dans votre liste d'amis.";
                 return;
             }
 
@@ -78,6 +81,7 @@ namespace DCDesktop.ViewModels
 
                 if (! response)
                 {
+                    ErrorMessage = $"Une erreur est survenue lors de la suppression";
                     return;
                 }
                 

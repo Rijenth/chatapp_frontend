@@ -27,6 +27,12 @@
                     HorizontalAlignment="Left"
                     />
             
+            <TextBlock Text="{Binding ErrorMessage}"
+                       Foreground="Red"
+                       FontSize="13"
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Center" />
+            
             <!-- Titre -->
             <TextBlock Text="Mes contacts"
                        FontSize="24"

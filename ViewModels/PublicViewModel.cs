@@ -18,6 +18,10 @@ public partial class PublicViewModel : ObservableObject
 
     [ObservableProperty]
     private Channel? _selectedChannel;
+    
+           
+    [ObservableProperty]
+    private string _errorMessage = string.Empty;
 
     public PublicViewModel()
     {
@@ -40,7 +44,7 @@ public partial class PublicViewModel : ObservableObject
             return;
         }
         
-        Console.WriteLine("⚠️ Impossible de charger les channels depuis l'API.");
+        ErrorMessage = "Impossible de charger les channels depuis l'API.";
     }
 
     [RelayCommand]
