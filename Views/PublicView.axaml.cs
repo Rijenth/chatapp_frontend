@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Threading;
 using DCDesktop.Models;
 using DCDesktop.ViewModels;
 
@@ -17,8 +18,6 @@ public partial class PublicView : UserControl
     {
         if (sender is Button button && button.DataContext is Channel channel)
         {
-            Debug.WriteLine($"🟣 Channel sélectionné : {channel.Id} - {channel.Name}");
-
             if (DataContext is PublicViewModel vm)
             {
                 // Mettre à jour directement le SelectedChannel au lieu d'utiliser la commande

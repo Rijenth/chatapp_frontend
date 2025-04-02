@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DCDesktop.Models;
@@ -12,29 +13,38 @@ namespace DCDesktop.ViewModels;
 
 public partial class PublicViewModel : ObservableObject
 {
-    private readonly ChannelApiService _channelApiService = new();
+    public readonly ChannelApiService _channelApiService = new();
 
     [ObservableProperty]
-    private ObservableCollection<Channel> _channels = new();
+    public ObservableCollection<Channel> _channels = new();
 
     [ObservableProperty]
-    private Channel? _selectedChannel;
+    public Channel? _selectedChannel;
+
+    [ObservableProperty] 
+    public ObservableCollection<Message> _messages = new();
     
-    [ObservableProperty]
-    private string _errorMessage = string.Empty;
-
-    [ObservableProperty]
-    private bool _isCreateChannelDialogVisible;
-
-    [ObservableProperty]
-    private string _newChannelName = string.Empty;
-
-    public PublicViewModel()
+    partial void OnSelectedChannelChanged(Channel? value)
     {
-        _ = LoadChannelsAsync();
+        if (ErrorMessage != String.Empty)
+        {
+            ErrorMessage = String.Empty;
+        }
+        
+        _ = LoadSelectedChannelMessages();
+        
     }
+           
+    [ObservableProperty]
+    public string _errorMessage = string.Empty;
 
-    private async Task LoadChannelsAsync()
+    [ObservableProperty]
+    public bool _isCreateChannelDialogVisible;
+
+    [ObservableProperty]
+    public string _newChannelName = string.Empty;
+    
+    public async Task LoadChannelsAsync()
     {
         var result = await _channelApiService.GetAllChannelsAsync();
 
@@ -51,14 +61,35 @@ public partial class PublicViewModel : ObservableObject
         ErrorMessage = "Impossible de charger les channels depuis l'API.";
     }
 
+    public async Task LoadSelectedChannelMessages()
+    {
+        if (SelectedChannel != null)
+        {
+            var result = await _channelApiService.GetAllMessagesFromChannel(SelectedChannel);
+
+            if (result != null)
+            {
+                Messages.Clear();
+                foreach (var message in result)
+                {
+                    Messages.Add(message);
+                }
+
+                return;
+            }
+        
+            ErrorMessage = "Impossible de charger les messages du channel.";  
+        }
+    }
+
     [RelayCommand]
-    private void GoBackMain()
+    public void GoBackMain()
     {
         NavigationService.GoToMain();
     }
 
     [RelayCommand]
-    private void ShowCreateChannelDialog()
+    public void ShowCreateChannelDialog()
     {
         NewChannelName = string.Empty;
         ErrorMessage = string.Empty;
@@ -66,13 +97,13 @@ public partial class PublicViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void CancelCreateChannel()
+    public void CancelCreateChannel()
     {
         IsCreateChannelDialogVisible = false;
     }
 
     [RelayCommand]
-    private async Task CreateChannel()
+    public async Task CreateChannel()
     {
         if (string.IsNullOrWhiteSpace(NewChannelName))
         {
