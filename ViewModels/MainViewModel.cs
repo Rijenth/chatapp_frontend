@@ -30,8 +30,10 @@ public partial class MainViewModel : ObservableObject
     }
     
     [RelayCommand]
-    private void Logout()
+    private async  Task Logout()
     {
+        var service = new AuthAPIService();
+        await service.Logout();
         AuthenticationStateService.SetUsername("");
         AuthenticationStateService.SetJWT("");
         NavigationService.GoToLogin();

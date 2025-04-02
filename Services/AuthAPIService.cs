@@ -2,6 +2,8 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DCDesktop.Models;
 
@@ -35,6 +37,30 @@ public class AuthAPIService : ApiService
         }
 
         return null;
+    }
+
+    public async Task<HttpResponseMessage> Logout()
+    {
+        var url = $"{BaseUrl}/auth/logout";
+    
+        var authenticationRequest = new AuthenticationRequest
+        {
+            username = AuthenticationStateService.GetUsername(),
+            password = "" // ou null si inutile
+        };
+
+        var jsonContent = JsonSerializer.Serialize(authenticationRequest);
+        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+        var request = new HttpRequestMessage(HttpMethod.Post, url)
+        {
+            Content = content
+        };
+
+        var jwt = AuthenticationStateService.GetJWT();
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", jwt);
+
+        return await _httpClient.SendAsync(request);
     }
 
     public async Task<HttpResponseMessage> Me()
