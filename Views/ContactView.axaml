@@ -104,11 +104,20 @@
                                         CornerRadius="6"
                                         Margin="0,0,0,8"
                                         Padding="15,10">
-                                    <Grid ColumnDefinitions="*,Auto">
+                                    <Grid ColumnDefinitions="*,Auto,Auto">
                                         <TextBlock Grid.Column="0"
                                                    Text="{Binding Username}"
-                                                   VerticalAlignment="Center"/>
-                                        <Button Grid.Column="1"
+                                                   Foreground="Black"
+                                                   VerticalAlignment="Center" />
+               
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding OnlineStatusText}"
+                                                   Foreground="{Binding OnlineStatusColor}"
+                                                   VerticalAlignment="Center" 
+                                                   Margin="0,0,10,0"
+                                                   />
+               
+                                        <Button Grid.Column="2"
                                                 Content="Supprimer"
                                                 Click="onRemoveFriendClicked"
                                                 Background="#F5F5F5"
