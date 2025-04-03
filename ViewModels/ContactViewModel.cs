@@ -33,7 +33,7 @@ namespace DCDesktop.ViewModels
             {
                 if (payload.User is not null && !Friends.Contains(payload.User))
                 {
-                    Friends.Add(payload.User);
+                    await LoadUserFriendList();
                 }
             };
         }
@@ -48,7 +48,10 @@ namespace DCDesktop.ViewModels
             {
                 foreach (var contact in result)
                 {
-                    Friends.Add(contact);
+                    if (! Friends.Contains(contact))
+                    {
+                        Friends.Add(contact);
+                    }
                 }
                 
                 return;
