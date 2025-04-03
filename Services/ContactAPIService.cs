@@ -19,7 +19,7 @@ public class ContactApiService : ApiService
     {
         try
         {
-            var url = $"{BaseUrl}/users/{AuthenticatedUserId}/contacts";
+            var url = $"http://{BaseUrl}/users/{AuthenticatedUserId}/contacts";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
@@ -48,7 +48,7 @@ public class ContactApiService : ApiService
     
     public async Task<bool> AddContactAsync(string contactUsername)
     {
-        var url = $"{BaseUrl}/users/{AuthenticatedUserId}/contacts";
+        var url = $"http://{BaseUrl}/users/{AuthenticatedUserId}/contacts";
 
         var requestBody = new CreateContactRequest()
         {
@@ -92,7 +92,7 @@ public class ContactApiService : ApiService
     
     public async Task<bool> DeleteContactAsync(int contactId)
     {
-        var url = $"{BaseUrl}/users/{AuthenticatedUserId}/contacts/{contactId}";
+        var url = $"http://{BaseUrl}/users/{AuthenticatedUserId}/contacts/{contactId}";
         var request = new HttpRequestMessage(HttpMethod.Delete, url);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 

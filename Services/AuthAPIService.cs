@@ -15,14 +15,14 @@ public class AuthAPIService : ApiService
 {
     public async Task<HttpResponseMessage> RegisterAsync(User user)
     {
-        var url = $"{BaseUrl}/auth/register";
+        var url = $"http://{BaseUrl}/auth/register";
 
         return await HttpClient.PostAsJsonAsync(url, user);
     }
 
     public async Task<AuthenticationResponse?> LoginAsync(AuthenticationRequest request)
     {
-        var url = $"{BaseUrl}/auth/login";
+        var url = $"http://{BaseUrl}/auth/login";
         
         var response = await HttpClient.PostAsJsonAsync(url, request);
 
@@ -36,7 +36,7 @@ public class AuthAPIService : ApiService
 
     public async Task<HttpResponseMessage> Logout()
     {
-        var url = $"{BaseUrl}/auth/logout";
+        var url = $"http://{BaseUrl}/auth/logout";
     
         var authenticationRequest = new AuthenticationRequest
         {
@@ -59,7 +59,7 @@ public class AuthAPIService : ApiService
 
     public async Task<HttpResponseMessage> Me()
     {
-        var url = $"{BaseUrl}/me";
+        var url = $"http://{BaseUrl}/me";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
