@@ -85,7 +85,12 @@ public partial class PublicViewModel : ObservableObject
 
         if (authUserId != message.UserId && SelectedChannel != null)
         {
-            await LoadSelectedChannelMessages();
+            if (Messages.Contains(message))
+            {
+                return;
+            }
+            
+            Messages.Add(message);
         }
     }
 
