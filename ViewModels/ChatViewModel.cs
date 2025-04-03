@@ -34,7 +34,7 @@ public partial class ChatViewModel : PublicViewModel
             return;
         }
         
-        var success = await _channelApiService.CreateChannelMessage(NewMessageText, SelectedChannel.Id);
+        var success = await GetChannelApiService().CreateChannelMessage(NewMessageText, SelectedChannel.Id);
 
         if (success)
         {

@@ -14,11 +14,13 @@ namespace DCDesktop.ViewModels
     {
         private readonly ContactApiService _contactApiService = new();
         
+        private readonly WebSocketService _webSocketService = new();
+        
         [ObservableProperty]
         private ObservableCollection<User> _friends = new();
 
         [ObservableProperty]
-        private string _NewContactUsername = string.Empty;
+        private string _newContactUsername = string.Empty;
         
         [ObservableProperty]
         private string _errorMessage = string.Empty;
@@ -26,15 +28,25 @@ namespace DCDesktop.ViewModels
         public ContactViewModel()
         {
             _ = LoadUserFriendList();
+            _webSocketService.SubscribeToContact();
+            _webSocketService.OnMessageReceived = async payload =>
+            {
+                if (payload.User is not null && !Friends.Contains(payload.User))
+                {
+                    Console.WriteLine(payload.User.Id);
+                    Friends.Add(payload.User);
+                }
+            };
         }
 
         private async Task LoadUserFriendList()
         {
+            Friends.Clear();
+            
             var result = await _contactApiService.GetAllUserContacts();
 
             if (result != null)
             {
-                Friends.Clear();
                 foreach (var contact in result)
                 {
                     Friends.Add(contact);
