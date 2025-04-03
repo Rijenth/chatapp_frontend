@@ -52,7 +52,7 @@ public class AuthAPIService : ApiService
             Content = content
         };
         
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
         return await HttpClient.SendAsync(request);
     }
@@ -62,7 +62,7 @@ public class AuthAPIService : ApiService
         var url = $"{BaseUrl}/me";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
         return await HttpClient.SendAsync(request);
     }

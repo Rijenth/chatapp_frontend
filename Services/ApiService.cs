@@ -9,13 +9,13 @@ public abstract class ApiService
     
     protected readonly uint AuthenticatedUserId;
     protected readonly string AuthenticatedUserUsername;
-    protected readonly string JWTToken;
+    protected readonly string JwtToken;
 
     protected ApiService(string baseUrl = "http://localhost:8000")
     {
         AuthenticatedUserId = AuthenticationStateService.GetUserID();
         AuthenticatedUserUsername = AuthenticationStateService.GetUsername();
-        JWTToken = AuthenticationStateService.GetJWT();
+        JwtToken = AuthenticationStateService.GetJWT();
         BaseUrl = baseUrl;
         HttpClient = new HttpClient();
     }

@@ -21,7 +21,7 @@ public class ChannelApiService : ApiService
         {
             var url = $"{BaseUrl}/channels";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
             var response = await HttpClient.SendAsync(request);
             
@@ -52,7 +52,7 @@ public class ChannelApiService : ApiService
         {
             var url = $"{BaseUrl}/channels";
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
     
             // Ajout du logging pour vérifier la requête
             Debug.WriteLine($"Tentative de création de channel avec le nom: {channelRequest.Name}");
@@ -98,7 +98,7 @@ public class ChannelApiService : ApiService
         {
             var url = $"{BaseUrl}/channels/{channelId}/messages";
             var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
         
             var options = new JsonSerializerOptions
             {
@@ -141,7 +141,7 @@ public class ChannelApiService : ApiService
         {
             var url = $"{BaseUrl}/channels/{channel.Id}/messages";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
             var response = await HttpClient.SendAsync(request);
             

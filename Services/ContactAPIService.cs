@@ -21,7 +21,7 @@ public class ContactApiService : ApiService
         {
             var url = $"{BaseUrl}/users/{AuthenticatedUserId}/contacts";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
             var response = await HttpClient.SendAsync(request);
             
@@ -68,7 +68,7 @@ public class ContactApiService : ApiService
             Content = new StringContent(json, Encoding.UTF8, "application/json")
         };
 
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
         try
         {
@@ -94,7 +94,7 @@ public class ContactApiService : ApiService
     {
         var url = $"{BaseUrl}/users/{AuthenticatedUserId}/contacts/{contactId}";
         var request = new HttpRequestMessage(HttpMethod.Delete, url);
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JWTToken);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
         try
         {
