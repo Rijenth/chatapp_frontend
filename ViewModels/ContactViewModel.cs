@@ -33,7 +33,6 @@ namespace DCDesktop.ViewModels
             {
                 if (payload.User is not null && !Friends.Contains(payload.User))
                 {
-                    Console.WriteLine(payload.User.Id);
                     Friends.Add(payload.User);
                 }
             };
