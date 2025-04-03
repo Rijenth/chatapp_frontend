@@ -19,7 +19,7 @@ public class ChannelApiService : ApiService
     {
         try
         {
-            var url = $"{BaseUrl}/channels";
+            var url = $"http://{BaseUrl}/channels";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 
@@ -50,7 +50,7 @@ public class ChannelApiService : ApiService
     {
         try
         {
-            var url = $"{BaseUrl}/channels";
+            var url = $"http://{BaseUrl}/channels";
             var request = new HttpRequestMessage(HttpMethod.Post, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
     
@@ -96,7 +96,7 @@ public class ChannelApiService : ApiService
     {
         try
         {
-            var url = $"{BaseUrl}/channels/{channelId}/messages";
+            var url = $"http://{BaseUrl}/channels/{channelId}/messages";
             var request = new HttpRequestMessage(HttpMethod.Post, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
         
@@ -139,7 +139,7 @@ public class ChannelApiService : ApiService
     {
         try
         {
-            var url = $"{BaseUrl}/channels/{channel.Id}/messages";
+            var url = $"http://{BaseUrl}/channels/{channel.Id}/messages";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", JwtToken);
 

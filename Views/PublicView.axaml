@@ -141,11 +141,6 @@
                                                        FontWeight="SemiBold"
                                                        Foreground="#1F2937"
                                                        FontSize="14" />
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{Binding CreatedAt, StringFormat='{}{0:HH:mm}'}"
-                                                       Foreground="#6B7280"
-                                                       FontSize="11"
-                                                       VerticalAlignment="Bottom" />
                                         </Grid>
 
                                         <!-- Contenu -->

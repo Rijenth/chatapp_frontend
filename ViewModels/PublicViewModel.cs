@@ -14,6 +14,8 @@ namespace DCDesktop.ViewModels;
 public partial class PublicViewModel : ObservableObject
 {
     public readonly ChannelApiService _channelApiService = new();
+    
+    public readonly WebSocketService _webSocketService = new();
 
     [ObservableProperty]
     public ObservableCollection<Channel> _channels = new();
@@ -23,17 +25,6 @@ public partial class PublicViewModel : ObservableObject
 
     [ObservableProperty] 
     public ObservableCollection<Message> _messages = new();
-    
-    partial void OnSelectedChannelChanged(Channel? value)
-    {
-        if (ErrorMessage != String.Empty)
-        {
-            ErrorMessage = String.Empty;
-        }
-        
-        _ = LoadSelectedChannelMessages();
-        
-    }
            
     [ObservableProperty]
     public string _errorMessage = string.Empty;
@@ -43,6 +34,27 @@ public partial class PublicViewModel : ObservableObject
 
     [ObservableProperty]
     public string _newChannelName = string.Empty;
+
+    public PublicViewModel()
+    {
+        _webSocketService.OnMessageReceived = async message => await HandleNewMessageFromWebsocket(message);
+    }
+    
+    partial void OnSelectedChannelChanged(Channel? value)
+    {
+        if (ErrorMessage != String.Empty)
+        {
+            ErrorMessage = String.Empty;
+        }
+
+        if (value != null)
+        {
+            _webSocketService.SubscribeToChannel(value.Id);
+        }
+        
+        _ = LoadSelectedChannelMessages();
+        
+    }
     
     public async Task LoadChannelsAsync()
     {
@@ -59,6 +71,16 @@ public partial class PublicViewModel : ObservableObject
         }
         
         ErrorMessage = "Impossible de charger les channels depuis l'API.";
+    }
+
+    public async Task HandleNewMessageFromWebsocket(Message message)
+    {
+        var authUserId = AuthenticationStateService.GetUserID();
+
+        if (authUserId != message.UserId && SelectedChannel != null)
+        {
+            await LoadSelectedChannelMessages();
+        }
     }
 
     public async Task LoadSelectedChannelMessages()
@@ -85,6 +107,11 @@ public partial class PublicViewModel : ObservableObject
     [RelayCommand]
     public void GoBackMain()
     {
+        if (SelectedChannel != null)
+        {
+            _webSocketService.Disconnect();
+        }
+        
         NavigationService.GoToMain();
     }
 
