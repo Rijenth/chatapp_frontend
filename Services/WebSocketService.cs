@@ -11,7 +11,7 @@ public class WebSocketService: ApiService
     
     public Action<WebSocketPayload>? OnMessageReceived { get; set; }
     
-    public void SetupSubscription(Uri url)
+    private void SetupSubscription(Uri url)
     {
         if (_client != null && _client.IsRunning)
         {
@@ -23,9 +23,10 @@ public class WebSocketService: ApiService
         _client.ReconnectTimeout = TimeSpan.FromSeconds(30);
     }
 
-    public void SubscribeToContact(int userId)
+    public void SubscribeToContact()
     {
-        var url = new Uri($"ws://{BaseUrl}/ws/contacts/{userId}");
+        var username = AuthenticationStateService.GetUsername();
+        var url = new Uri($"ws://{BaseUrl}/ws/{username}/contacts");
         
         SetupSubscription(url);
         
@@ -37,11 +38,11 @@ public class WebSocketService: ApiService
             {
                 try
                 {
-                    var message = JsonSerializer.Deserialize<User>(msg.Text);
+                    var user = JsonSerializer.Deserialize<User>(msg.Text);
 
-                    if (message != null)
+                    if (user != null)
                     {
-                        OnMessageReceived?.Invoke(WebSocketPayload.From(message));
+                        OnMessageReceived?.Invoke(WebSocketPayload.From(user));
                     }
                 }
                 catch (Exception ex)
