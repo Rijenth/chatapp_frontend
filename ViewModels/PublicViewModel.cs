@@ -13,29 +13,29 @@ namespace DCDesktop.ViewModels;
 
 public partial class PublicViewModel : ObservableObject
 {
-    public readonly ChannelApiService _channelApiService = new();
+    private readonly ChannelApiService _channelApiService = new();
     
-    public readonly WebSocketService _webSocketService = new();
+    private readonly WebSocketService _webSocketService = new();
 
     [ObservableProperty]
-    public ObservableCollection<Channel> _channels = new();
+    private ObservableCollection<Channel> _channels = new();
 
     [ObservableProperty]
-    public Channel? _selectedChannel;
+    private Channel? _selectedChannel;
 
     [ObservableProperty] 
-    public ObservableCollection<Message> _messages = new();
+    private ObservableCollection<Message> _messages = new();
            
     [ObservableProperty]
-    public string _errorMessage = string.Empty;
+    private string _errorMessage = string.Empty;
 
     [ObservableProperty]
-    public bool _isCreateChannelDialogVisible;
+    private bool _isCreateChannelDialogVisible;
 
     [ObservableProperty]
-    public string _newChannelName = string.Empty;
+    private string _newChannelName = string.Empty;
 
-    public PublicViewModel()
+    protected PublicViewModel()
     {
         _webSocketService.OnMessageReceived = async payload =>
         {
@@ -62,7 +62,7 @@ public partial class PublicViewModel : ObservableObject
         
     }
     
-    public async Task LoadChannelsAsync()
+    protected async Task LoadChannelsAsync()
     {
         var result = await _channelApiService.GetAllChannelsAsync();
 
@@ -79,7 +79,7 @@ public partial class PublicViewModel : ObservableObject
         ErrorMessage = "Impossible de charger les channels depuis l'API.";
     }
 
-    public async Task HandleNewMessageFromWebsocket(Message message)
+    private async Task HandleNewMessageFromWebsocket(Message message)
     {
         var authUserId = AuthenticationStateService.GetUserID();
 
@@ -89,7 +89,7 @@ public partial class PublicViewModel : ObservableObject
         }
     }
 
-    public async Task LoadSelectedChannelMessages()
+    protected async Task LoadSelectedChannelMessages()
     {
         if (SelectedChannel != null)
         {
@@ -111,7 +111,7 @@ public partial class PublicViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void GoBackMain()
+    private void GoBackMain()
     {
         if (SelectedChannel != null)
         {
@@ -122,7 +122,7 @@ public partial class PublicViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ShowCreateChannelDialog()
+    private void ShowCreateChannelDialog()
     {
         NewChannelName = string.Empty;
         ErrorMessage = string.Empty;
@@ -130,13 +130,13 @@ public partial class PublicViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void CancelCreateChannel()
+    private void CancelCreateChannel()
     {
         IsCreateChannelDialogVisible = false;
     }
 
     [RelayCommand]
-    public async Task CreateChannel()
+    private async Task CreateChannel()
     {
         if (string.IsNullOrWhiteSpace(NewChannelName))
         {
@@ -164,5 +164,10 @@ public partial class PublicViewModel : ObservableObject
             Debug.WriteLine($"Erreur création channel: {ex.Message}");
             ErrorMessage = $"Erreur lors de la création: {ex.Message}";
         }
+    }
+
+    public ChannelApiService GetChannelApiService()
+    {
+        return _channelApiService;
     }
 }
