@@ -113,6 +113,10 @@
                                 Foreground="#2E1065"
                                 HorizontalAlignment="Left"
                                 IsVisible="{Binding SelectedChannel, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                        <TextBlock Text="{Binding SelectedChannel.Creator.Username, StringFormat='Créé par {0}'}"
+                                   FontSize="14"
+                                   Foreground="Gray"
+                                   Margin="0,0,0,0"/>
                         <TextBlock Text="{Binding ErrorMessage}"
                                 Foreground="Red"
                                 FontSize="13"
