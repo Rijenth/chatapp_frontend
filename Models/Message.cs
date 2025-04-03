@@ -23,8 +23,8 @@ namespace DCDesktop.Models
 
         public DateTime? ReceivedAt { get; set; }
 
-        [JsonPropertyName("channel")]
-        public Channel? Channel { get; set; }
+        [JsonPropertyName("channel_id")]
+        public uint ChannelId { get; set; }
 
         public DateTime? DeletedAt { get; set; }
     }

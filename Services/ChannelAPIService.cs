@@ -59,7 +59,7 @@ public class ChannelApiService : ApiService
         
             var options = new JsonSerializerOptions
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase // Important pour les APIs REST
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
         
             var json = JsonSerializer.Serialize(channelRequest, options);
