@@ -37,7 +37,13 @@ public partial class PublicViewModel : ObservableObject
 
     public PublicViewModel()
     {
-        _webSocketService.OnMessageReceived = async message => await HandleNewMessageFromWebsocket(message);
+        _webSocketService.OnMessageReceived = async payload =>
+        {
+            if (payload.Message is not null)
+            {
+                await HandleNewMessageFromWebsocket(payload.Message);
+            }
+        };
     }
     
     partial void OnSelectedChannelChanged(Channel? value)
