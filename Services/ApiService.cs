@@ -11,7 +11,7 @@ public abstract class ApiService
     protected readonly string AuthenticatedUserUsername;
     protected readonly string JwtToken;
 
-    protected ApiService(string baseUrl = "localhost:8000")
+    protected ApiService(string baseUrl = "hetic.alexandregrodent.com:7002")
     {
         AuthenticatedUserId = AuthenticationStateService.GetUserID();
         AuthenticatedUserUsername = AuthenticationStateService.GetUsername();
